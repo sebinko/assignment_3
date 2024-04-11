@@ -12,14 +12,17 @@ public class ViewHandler {
 
     private ViewFactory viewFactory;
 
+    private ViewModelFactory viewModelFactory;
+
     public ViewHandler(ViewModelFactory viewModelFactory) {
         this.viewFactory = new ViewFactory(this, viewModelFactory);
+        this.viewModelFactory = viewModelFactory;
         this.currentScene = new Scene(new Region());
     }
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        openView(ViewFactory.CHAT);
+        openView(ViewFactory.LOGIN);
     }
 
     public void openView(String id) {
@@ -33,6 +36,10 @@ public class ViewHandler {
         primaryStage.setScene(currentScene);
         primaryStage.sizeToScene();
         primaryStage.show();
+    }
+
+    public ViewModelFactory getViewModelFactory() {
+        return viewModelFactory;
     }
 
     public void closeView() {

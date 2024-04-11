@@ -23,8 +23,6 @@ public class ChatApplication extends Application {
         ViewModelFactory viewModelFactory = new ViewModelFactory(model);
         ViewHandler viewHandler = new ViewHandler(viewModelFactory);
 
-        ChatCallbackClient chatCallbackClient = new ChatCallbackClient(model, viewModelFactory.getChatViewModel());
-        chat.registerReceiver(chatCallbackClient);
         viewHandler.start(stage);
     }
 

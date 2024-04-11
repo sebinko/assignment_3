@@ -16,4 +16,6 @@ public interface Chat extends Remote {
     public void addMessage(Message message) throws Exception;
 
     public void registerReceiver(ChatReceiver chatReceiver) throws Exception;
+
+    public void removeReceiver(ChatReceiver chatReceiver) throws Exception;
 }

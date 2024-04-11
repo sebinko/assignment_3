@@ -40,9 +40,23 @@ public class ViewFactory {
         return chatViewController.getRoot();
     }
 
+    public Region loadLoginView() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("LoginView.fxml"));
+        try {
+            Region root = loader.load();
+            LoginViewController loginViewController = loader.getController();
+            loginViewController.init(viewHandler, viewModelFactory.getLoginViewModel(), root);
+            return root;
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
     public Region load(String id) {
         Region root = switch(id) {
             case CHAT -> loadChatView();
+            case LOGIN -> loadLoginView();
             default -> throw new IllegalArgumentException("Unknown view: " + id);
         };
         return root;

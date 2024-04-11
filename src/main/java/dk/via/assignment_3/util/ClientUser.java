@@ -4,13 +4,23 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class ClientUser extends User implements Serializable {
+    private static ClientUser instance;
 
     private ClientUser() {
         super(UUID.randomUUID().toString());
     }
 
     public static ClientUser getInstance() {
-        return new ClientUser();
+        if (instance == null) {
+            instance = new ClientUser();
+        }
+
+        return instance;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+        System.out.println("ClientUser: " + username);
     }
 
     @Override

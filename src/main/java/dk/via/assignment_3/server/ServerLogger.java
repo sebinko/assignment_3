@@ -9,22 +9,21 @@ public class ServerLogger {
     private static ServerLogger instance;
     private Logger logger;
 
-    // Private constructor to initialize the logger
     private ServerLogger() {
         logger = Logger.getLogger("ServerLogger");
         try {
-            FileHandler fileHandler = new FileHandler("server.log", true);
+            String logFileName = "log-" + java.time.LocalDate.now() + ".log";
+
+            FileHandler fileHandler = new FileHandler(logFileName, true);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
-            logger.setLevel(Level.ALL); // Log all levels
-            // Prevent logging messages from propagating to the parent logger
+            logger.setLevel(Level.ALL);
             logger.setUseParentHandlers(false);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to initialize logger", e);
         }
     }
 
-    // Public method to get the instance of the class
     public static synchronized ServerLogger getInstance() {
         if (instance == null) {
             instance = new ServerLogger();
@@ -32,12 +31,10 @@ public class ServerLogger {
         return instance;
     }
 
-    // Wrapper method for logging messages
     public void log(Level level, String message) {
         logger.log(level, message);
     }
 
-    // Convenience methods for different logging levels
     public void info(String message) {
         log(Level.INFO, message);
     }
@@ -49,6 +46,4 @@ public class ServerLogger {
     public void severe(String message) {
         log(Level.SEVERE, message);
     }
-
-    // Add more methods for other levels if needed
 }

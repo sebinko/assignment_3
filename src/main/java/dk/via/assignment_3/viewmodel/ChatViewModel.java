@@ -1,5 +1,6 @@
 package dk.via.assignment_3.viewmodel;
 
+import dk.via.assignment_3.client.ChatCallbackClient;
 import dk.via.assignment_3.model.Message;
 import dk.via.assignment_3.model.Model;
 import dk.via.assignment_3.util.ClientUser;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.rmi.RemoteException;
 
 public class ChatViewModel implements PropertyChangeListener {
     private final Model model;
@@ -21,11 +23,22 @@ public class ChatViewModel implements PropertyChangeListener {
     private SimpleListProperty<User> users;
     private StringProperty usersCountString;
 
+    private  ChatCallbackClient chatCallbackClient;
+
     public ChatViewModel(Model model) {
         this.model = model;
         this.messages = new SimpleListProperty<>();
         this.users = new SimpleListProperty<>();
         this.usersCountString = new SimpleStringProperty();
+    }
+
+    public void init() throws RemoteException {
+        chatCallbackClient = new ChatCallbackClient(model, this);
+        try {
+            model.getChat().registerReceiver(chatCallbackClient);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getUsername() {
@@ -52,6 +65,16 @@ public class ChatViewModel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public void quit() {
+        try {
+            model.getChat().removeReceiver(chatCallbackClient);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        System.exit(0);
     }
 
     public void bindMessages(ObjectProperty<ObservableList<Message>> property) {

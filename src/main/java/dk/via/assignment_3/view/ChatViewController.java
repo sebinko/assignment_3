@@ -35,10 +35,16 @@ public class ChatViewController {
     @FXML
     Label usersLabel;
 
-    public void init(ViewHandler viewHandler, ChatViewModel chatViewModel, Region root) {
+    @FXML
+    Button quitButton;
+
+    public void init(ViewHandler viewHandler, ChatViewModel chatViewModel, Region root) throws RemoteException {
         this.viewHandler = viewHandler;
         this.viewModel = chatViewModel;
         this.root = root;
+        chatViewModel.init();
+
+
 
         usernameLabel.setText("User: " + viewModel.getUsername());
 //        chatViewModel.bindFirst(firstOperand.textProperty());
@@ -54,9 +60,23 @@ public class ChatViewController {
             }
         });
 
+        quitButton.setOnAction(event -> {
+            try {
+                quit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+
         chatViewModel.bindMessages(chatListView.itemsProperty());
         chatViewModel.bindUsers(usersListView.itemsProperty());
         chatViewModel.bindUsersCountString(usersLabel.textProperty());
+    }
+
+    private void quit() {
+        viewModel.quit();
     }
 
     @FXML
@@ -66,7 +86,11 @@ public class ChatViewController {
         } catch (RemoteException e) {
             // TODO: Handle exception
         }
+
+        chatMessageField.setText("");
     }
+
+
 
 
     public Region getRoot() {

@@ -26,4 +26,9 @@ public class ModelManager implements Model {
     public void setMessages(ArrayList<Message> messages) throws RemoteException {
 
     }
+
+    @Override
+    public Chat getChat() {
+        return chat;
+    }
 }
