@@ -38,13 +38,13 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
                <children>
-                  <TextField fx:id="chatMessageField" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="chatMessageField" onAction="#onSendMessage" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></TextField>
-                  <Button fx:id="chatMessageButton" mnemonicParsing="false" text="Send message" />
+                  <Button fx:id="chatMessageButton" mnemonicParsing="false" onAction="#onSendMessage" text="Send message" />
                   <Region prefHeight="200.0" prefWidth="110.0" />
-                  <Button fx:id="quitButton" mnemonicParsing="false" text="Quit" />
+                  <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onQuit" text="Quit" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />

@@ -3,6 +3,7 @@ package dk.via.assignment_3.view;
 import dk.via.assignment_3.model.Message;
 import dk.via.assignment_3.util.User;
 import dk.via.assignment_3.viewmodel.ChatViewModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,43 +45,20 @@ public class ChatViewController {
         this.root = root;
         chatViewModel.init();
 
-
-
         usernameLabel.setText("User: " + viewModel.getUsername());
-//        chatViewModel.bindFirst(firstOperand.textProperty());
-//        chatViewModel.bindSecond(secondOperand.textProperty());
-//        chatViewModel.bindResult(result.textProperty());
-//        chatViewModel.bindError(error.textProperty());
-
-        chatMessageButton.setOnAction(event -> {
-            try {
-                sendMessage();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        quitButton.setOnAction(event -> {
-            try {
-                quit();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-
 
         chatViewModel.bindMessages(chatListView.itemsProperty());
         chatViewModel.bindUsers(usersListView.itemsProperty());
         chatViewModel.bindUsersCountString(usersLabel.textProperty());
     }
 
-    private void quit() {
+    @FXML
+    public void onQuit() throws Exception {
         viewModel.quit();
     }
 
     @FXML
-    public void sendMessage() throws Exception {
+    public void onSendMessage() throws Exception {
         try {
             viewModel.addMessage(chatMessageField.getText());
         } catch (RemoteException e) {
@@ -89,9 +67,6 @@ public class ChatViewController {
 
         chatMessageField.setText("");
     }
-
-
-
 
     public Region getRoot() {
         return root;
