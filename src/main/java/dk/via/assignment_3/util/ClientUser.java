@@ -18,8 +18,7 @@ public class ClientUser extends User implements Serializable {
         return instance;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String username) {this.username = username;
         System.out.println("ClientUser: " + username);
     }
 
