@@ -23,7 +23,7 @@ public class ChatViewModel implements PropertyChangeListener {
     private SimpleListProperty<User> users;
     private StringProperty usersCountString;
 
-    private  ChatCallbackClient chatCallbackClient;
+    private ChatCallbackClient chatCallbackClient;
 
     public ChatViewModel(Model model) {
         this.model = model;

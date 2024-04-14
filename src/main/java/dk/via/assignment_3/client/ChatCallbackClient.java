@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ChatCallbackClient extends UnicastRemoteObject implements ChatReceiver {
     private Model model;
     private ChatViewModel viewModel;
+
     public ChatCallbackClient(Model model, ChatViewModel viewModel) throws RemoteException {
         super(0);
         this.model = model;

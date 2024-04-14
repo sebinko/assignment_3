@@ -3,7 +3,6 @@ package dk.via.assignment_3.view;
 import dk.via.assignment_3.model.Message;
 import dk.via.assignment_3.util.User;
 import dk.via.assignment_3.viewmodel.ChatViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +12,7 @@ import javafx.scene.layout.Region;
 
 import java.rmi.RemoteException;
 
-public class ChatViewController {
+public class ChatView {
     private ViewHandler viewHandler;
     private ChatViewModel viewModel;
     private Region root;

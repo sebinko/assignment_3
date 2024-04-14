@@ -1,6 +1,5 @@
 package dk.via.assignment_3.viewmodel;
 
-import dk.via.assignment_3.client.ChatCallbackClient;
 import dk.via.assignment_3.model.Model;
 import dk.via.assignment_3.util.ClientUser;
 import javafx.beans.property.SimpleStringProperty;

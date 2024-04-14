@@ -15,29 +15,31 @@ public class ViewFactory {
 
     private final ViewModelFactory viewModelFactory;
 
-    private ChatViewController chatViewController;
+    private ChatView chatView;
+    private LoginView loginView;
 
 
     public ViewFactory(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         this.viewHandler = viewHandler;
         this.viewModelFactory = viewModelFactory;
-        this.chatViewController = null;
+        this.chatView = null;
+        this.loginView = null;
     }
 
     public Region loadChatView() {
-        if (chatViewController == null) {
+        if (chatView == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("ChatView.fxml"));
             try {
                 Region root = loader.load();
-                chatViewController = loader.getController();
-                chatViewController.init(viewHandler, viewModelFactory.getChatViewModel(), root);
+                chatView = loader.getController();
+                chatView.init(viewHandler, viewModelFactory.getChatViewModel(), root);
             } catch (IOException e) {
                 throw new IOError(e);
             }
         }
-        chatViewController.reset();
-        return chatViewController.getRoot();
+        chatView.reset();
+        return chatView.getRoot();
     }
 
     public Region loadLoginView() {
@@ -45,8 +47,8 @@ public class ViewFactory {
         loader.setLocation(getClass().getResource("LoginView.fxml"));
         try {
             Region root = loader.load();
-            LoginViewController loginViewController = loader.getController();
-            loginViewController.init(viewHandler, viewModelFactory.getLoginViewModel(), root);
+            loginView = loader.getController();
+            loginView.init(viewHandler, viewModelFactory.getLoginViewModel(), root);
             return root;
         } catch (IOException e) {
             throw new IOError(e);
@@ -54,7 +56,7 @@ public class ViewFactory {
     }
 
     public Region load(String id) {
-        Region root = switch(id) {
+        Region root = switch (id) {
             case CHAT -> loadChatView();
             case LOGIN -> loadLoginView();
             default -> throw new IllegalArgumentException("Unknown view: " + id);

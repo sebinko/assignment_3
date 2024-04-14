@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public interface ChatReceiver extends Remote {
     void receiveMessages(ArrayList<Message> messages) throws Exception;
+
     void receiveUsersUpdate(ArrayList<User> users) throws Exception;
+
     User getUser() throws Exception;
 }

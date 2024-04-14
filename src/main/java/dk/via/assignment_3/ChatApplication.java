@@ -1,6 +1,5 @@
 package dk.via.assignment_3;
 
-import dk.via.assignment_3.client.ChatCallbackClient;
 import dk.via.assignment_3.model.Model;
 import dk.via.assignment_3.model.ModelManager;
 import dk.via.assignment_3.shared.Chat;
